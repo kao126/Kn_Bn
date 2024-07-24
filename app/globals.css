@@ -3,4 +3,6 @@
 @tailwind utilities;
 
 body {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity)) /* #f1f5f9 */;
 }
