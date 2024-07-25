@@ -1,7 +1,8 @@
 import { useDroppable } from '@dnd-kit/core';
-import { rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
+import {
+  SortableContext,
+} from '@dnd-kit/sortable';
 import { Task } from './task';
-import { useState } from 'react';
 import { Plus } from './atoms/plus';
 
 export function TaskList({ status, filteredTaskList }) {
@@ -16,13 +17,12 @@ export function TaskList({ status, filteredTaskList }) {
       <SortableContext
         id={status}
         items={filteredTaskList}
-        strategy={rectSortingStrategy}
       >
-        {/* <div ref={setNodeRef}> */}
-        {filteredTaskList.map((task) => (
-          <Task task={task} key={task.id} />
-        ))}
-        {/* </div> */}
+        <div ref={setNodeRef}>
+          {filteredTaskList.map((task) => (
+            <Task task={task} key={task.id} />
+          ))}
+        </div>
       </SortableContext>
     </div>
   );

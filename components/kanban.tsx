@@ -1,34 +1,20 @@
 'use client';
 import {
-  closestCenter,
   DndContext,
+  DragOverEvent,
   DragEndEvent,
   KeyboardSensor,
+  closestCenter,
   PointerSensor,
-  useDroppable,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import {
-  arrayMove,
-  rectSortingStrategy,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { Task } from './task';
+import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useId, useState } from 'react';
 import { TaskList } from './taskList';
 
 export function Kanban() {
   const id = useId();
-
-  const listData = [
-    { listTitle: 'Plan' },
-    { listTitle: 'Do' },
-    { listTitle: 'Check' },
-    { listTitle: 'Action' },
-  ];
   const statusList = ['Plan', 'Do', 'Check', 'Action'];
 
   const [taskList, setTaskList] = useState([
@@ -65,49 +51,29 @@ export function Kanban() {
     })
   );
 
-  const findColumn = (id: number | null) => {
-    if (!id) {
-      return null;
-    }
-    // if (id) {
-    //   return id;
-    // }
-    console.log('id: ', id);
-    console.log(
-      'task: ',
-      taskList.find((task) => task.id === id)
+  function isSameListDragOver(active, over) {
+    return (
+      active.data.current?.sortable.containerId ===
+      (over.data.current?.sortable.containerId || over.id)
     );
-    console.log('fc: ', taskList.find((task) => task.id === id)?.status);
+  }
 
-    return taskList.find((task) => task.id === id)?.status;
-  };
-
-  const handleDragOver = (event: DragEndEvent) => {
+  const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
 
-    if (!over || typeof over.id === 'number' || active.id === over.id) {
+    if (active.id === over?.id || isSameListDragOver(active, over)) {
       return;
     }
-    console.log('over-a: ', active);
-    console.log('over-o: ', over);
 
-    // const overId = Number(over.id);
-    // const overColumn = findColumn(overId);
-
-    // over先todoのidが異なればデータの入れ替えを行う
-    // if (active.id !== over.id) {
-    //   const dragIndex = taskList.findIndex((task) => task.id === active.id);
-    //   const dropIndex = taskList.findIndex((task) => task.id === over.id);
-
-    //   // active.idからtodoを特定しstatusをcolumnのid(status)に変更する
-    //   const updatedTodoList = taskList.map((task) => {
-    //     return task.id === Number(active.id)
-    //       ? { ...task, status: (overColumn as Status) || (overId as Status) }
-    //       : task;
-    //   });
-
-    //   setTaskList(arrayMove(updatedTodoList, dragIndex, dropIndex));
-    // }
+    const updateTaskList = taskList.map((task) =>
+      task.id === active.id
+        ? {
+            ...task,
+            status: over?.data.current?.sortable.containerId || over?.id,
+          }
+        : task
+    );
+    setTaskList(updateTaskList);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -120,19 +86,19 @@ export function Kanban() {
       return;
     }
 
-    if (
-      active.data.current?.sortable.containerId !==
-      over.data.current?.sortable.containerId
-    ) {
-      const newTaskList = taskList.map((task) => {
-        if (task.id === active.id) {
-          task.status = over.data.current?.sortable.containerId;
-        }
-        return task;
-      });
-      console.log(newTaskList);
-      setTaskList(newTaskList);
-    }
+    // if (
+    //   active.data.current?.sortable.containerId !==
+    //   over.data.current?.sortable.containerId
+    // ) {
+    //   const newTaskList = taskList.map((task) => {
+    //     if (task.id === active.id) {
+    //       task.status = over.data.current?.sortable.containerId;
+    //     }
+    //     return task;
+    //   });
+    //   console.log(newTaskList);
+    //   setTaskList(newTaskList);
+    // }
 
     // over先todoのidが異なればデータの入れ替えを行う
     if (active.id !== over.id) {
