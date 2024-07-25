@@ -8,6 +8,8 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  Active,
+  Over,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useId, useState } from 'react';
@@ -51,7 +53,7 @@ export function Kanban() {
     })
   );
 
-  function isSameListDragOver(active, over) {
+  function isSameListDragOver(active: Active, over: Over) {
     return (
       active.data.current?.sortable.containerId ===
       (over.data.current?.sortable.containerId || over.id)
@@ -61,7 +63,7 @@ export function Kanban() {
   const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
 
-    if (active.id === over?.id || isSameListDragOver(active, over)) {
+    if (!over || active.id === over.id || isSameListDragOver(active, over)) {
       return;
     }
 
