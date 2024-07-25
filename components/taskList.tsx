@@ -1,11 +1,19 @@
 import { useDroppable } from '@dnd-kit/core';
-import {
-  SortableContext,
-} from '@dnd-kit/sortable';
+import { SortableContext } from '@dnd-kit/sortable';
 import { Task } from './task';
 import { Plus } from './atoms/plus';
 
-export function TaskList({ status, filteredTaskList }) {
+type TaskListProps = {
+  status: string;
+  filteredTaskList: {
+    id: number;
+    title: string;
+    content: string;
+    status: string;
+  }[];
+};
+
+export function TaskList({ status, filteredTaskList }: TaskListProps) {
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
@@ -14,10 +22,7 @@ export function TaskList({ status, filteredTaskList }) {
         <h2>{status}</h2>
         <Plus />
       </div>
-      <SortableContext
-        id={status}
-        items={filteredTaskList}
-      >
+      <SortableContext id={status} items={filteredTaskList}>
         <div ref={setNodeRef}>
           {filteredTaskList.map((task) => (
             <Task task={task} key={task.id} />

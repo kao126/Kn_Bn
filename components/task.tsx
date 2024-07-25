@@ -1,7 +1,16 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-export function Task({ task }) {
+type TaskProps = {
+  task: {
+    id: number;
+    title: string;
+    content: string;
+    status: string;
+  };
+};
+
+export function Task({ task }: TaskProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: task.id });
 
