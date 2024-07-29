@@ -1,13 +1,9 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { TasksProps } from '@/types/tasks';
 
 type TaskProps = {
-  task: {
-    id: number;
-    title: string;
-    content: string;
-    status: string;
-  };
+  task: TasksProps;
 };
 
 export function Task({ task }: TaskProps) {
@@ -30,8 +26,8 @@ export function Task({ task }: TaskProps) {
         className="block absolute -inset-0.5 -left-0.5 w-1 bg-[#bf94ff] rounded-tl-md rounded-bl-md"
         aria-hidden="true"
       ></span>
-      <h2>タイトル{task.id}</h2>
-      <p>内容</p>
+      <h2 className="font-bold text-sm">{task.title}</h2>
+      <p className="text-sm whitespace-pre-line">{task.content}</p>
     </div>
   );
 }
