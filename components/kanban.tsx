@@ -23,36 +23,18 @@ import { TasksProps } from '@/types/tasks';
 //   status: string;
 // };
 
+const initialTask = {
+  id: 1,
+  title: 'タスク名',
+  content:
+    'TODO内容(詳細)をここに記載します。\n 右上の＋ボタンからタスクを追加できます。',
+  status: 'ToDo',
+};
 export function Kanban() {
   const id = useId();
-  const statusList = ['Todo', 'In Progress', 'Pending', 'Done'];
+  const statusList = ['ToDo', 'In Progress', 'Pending', 'Done'];
 
-  const [tasks, setTasks] = useState<TasksProps[]>([
-    // {
-    //   id: 1,
-    //   title: 'タイトル',
-    //   content: 'TODO内容はここに記載します。',
-    //   status: 'Plan',
-    // },
-    // {
-    //   id: 2,
-    //   title: 'タイトル2',
-    //   content: 'TODO内容の二番目',
-    //   status: 'Do',
-    // },
-    // {
-    //   id: 3,
-    //   title: 'タイトル3',
-    //   content: 'TODO内容の3番目',
-    //   status: 'Action',
-    // },
-    // {
-    //   id: 4,
-    //   title: 'タイトル4',
-    //   content: 'TODO内容の4番目',
-    //   status: 'Action',
-    // },
-  ]);
+  const [tasks, setTasks] = useState<TasksProps[]>([initialTask]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
