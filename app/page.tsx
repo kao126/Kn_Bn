@@ -5,7 +5,7 @@ import { Kanban } from '@/components/kanban';
 export default function Home() {
   // const form = new TaskForm();
   return (
-    <main>
+    <main className="h-dvh">
       <Kanban />
     </main>
   );

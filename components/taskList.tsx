@@ -47,7 +47,10 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
     <div className="p-4">
       <div className="flex justify-between items-center mb-2">
         <h2>{status}</h2>
-        <Plus onClick={handlePlus} />
+        <Plus
+          onClick={handlePlus}
+          className="cursor-pointer active:translate-y-0.5"
+        />
       </div>
       <SortableContext id={status} items={filteredTasks}>
         <div ref={setNodeRef}>
@@ -83,7 +86,10 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
             />
           </div>
           <div className="text-center">
-            <button type="submit" className="border-2 rounded-md px-2 py-1">
+            <button
+              type="submit"
+              className="border-2 rounded-md px-2 py-1 active:translate-y-0.5"
+            >
               Add Task
             </button>
           </div>
