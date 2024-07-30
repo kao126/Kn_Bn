@@ -16,19 +16,13 @@ import { useId, useState } from 'react';
 import { TaskList } from './taskList';
 import { TasksProps } from '@/types/tasks';
 
-// type TaskListProps = {
-//   id: number;
-//   title: string;
-//   content: string;
-//   status: string;
-// };
-
 const initialTask = {
   id: 1,
   title: 'タスク名',
   content:
     'TODO内容(詳細)をここに記載します。\n 右上の＋ボタンからタスクを追加できます。',
   status: 'ToDo',
+  url: 'https://github.com/kao126/Kn_Bn',
 };
 
 export function Kanban() {

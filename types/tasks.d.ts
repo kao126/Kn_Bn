@@ -3,4 +3,5 @@ export type TasksProps = {
   title: string;
   content: string;
   status: string;
+  url?: string;
 };

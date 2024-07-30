@@ -1,7 +1,7 @@
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { Task } from './task';
-import { Plus } from './atoms/plus';
+import { Plus } from './icons/plus';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { TasksProps } from '@/types/tasks';
 
