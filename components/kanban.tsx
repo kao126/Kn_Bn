@@ -30,6 +30,7 @@ const initialTask = {
     'TODO内容(詳細)をここに記載します。\n 右上の＋ボタンからタスクを追加できます。',
   status: 'ToDo',
 };
+
 export function Kanban() {
   const id = useId();
   const statusList = ['ToDo', 'In Progress', 'Pending', 'Done'];
@@ -115,7 +116,7 @@ export function Kanban() {
           Add Board
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid gap-4 sm:grid-cols-4">
         <DndContext
           id={id}
           sensors={sensors}
