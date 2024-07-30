@@ -46,7 +46,7 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-2">
-        <h2>{status}</h2>
+        <h2 className="font-semibold text-slate-600">{status}</h2>
         <Plus
           onClick={handlePlus}
           className="cursor-pointer active:translate-y-0.5"
@@ -65,7 +65,9 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
           className="border-2 rounded-md bg-white p-4"
         >
           <div>
-            <label htmlFor="title">タイトル</label>
+            <label htmlFor="title" className="text-slate-600">
+              タイトル
+            </label>
             <input
               id="title"
               name="title"
@@ -76,7 +78,9 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
             />
           </div>
           <div>
-            <label htmlFor="content">コンテンツ</label>
+            <label htmlFor="content" className="text-slate-600">
+              コンテンツ
+            </label>
             <textarea
               id="content"
               name="content"
@@ -88,7 +92,7 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
           <div className="text-center">
             <button
               type="submit"
-              className="border-2 rounded-md px-2 py-1 active:translate-y-0.5"
+              className="border-2 rounded-md px-2 py-1 text-slate-600 active:translate-y-0.5"
             >
               Add Task
             </button>

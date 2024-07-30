@@ -128,12 +128,12 @@ export function Kanban() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center p-4">
-        <h1 className="font-bold text-2xl">Kn_Bn</h1>
-        <button className="border border-[#bf94ff] rounded-md bg-white p-2 active:translate-y-0.5">
+        <h1 className="font-bold text-2xl text-slate-600">Kn_Bn</h1>
+        <button className="border border-[#bf94ff] rounded-md bg-white p-2 font-semibold text-slate-600 active:translate-y-0.5">
           Add Board
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-4 ">
+      <div className="grid grid-cols-4 gap-4">
         <DndContext
           id={id}
           sensors={sensors}
