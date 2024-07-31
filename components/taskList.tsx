@@ -1,9 +1,17 @@
-import { useDroppable } from '@dnd-kit/core';
-import { SortableContext } from '@dnd-kit/sortable';
-import { Task } from './task';
+import {
+  defaultDropAnimationSideEffects,
+  DragOverlay,
+  useDroppable,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { Sortable } from './sortable';
 import { Plus } from './icons/plus';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { TasksProps } from '@/types/tasks';
+import { Task } from './task';
 
 type TaskListProps = {
   status: string;
@@ -14,11 +22,13 @@ type TaskListProps = {
     status: string;
   }[];
   setTasks: Dispatch<SetStateAction<TasksProps[]>>;
+  activeId: number | null;
 };
 
-export function TaskList({ status, tasks, setTasks }: TaskListProps) {
+export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
   const { setNodeRef } = useDroppable({ id: status });
   const filteredTasks = tasks.filter((task) => task.status === status);
+  const activeTask = tasks.find((task) => task.id === activeId);
   const [showForm, setShowForm] = useState(false);
 
   const handlePlus = () => {
@@ -52,10 +62,14 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
           className="cursor-pointer active:translate-y-0.5"
         />
       </div>
-      <SortableContext id={status} items={filteredTasks}>
+      <SortableContext
+        id={status}
+        items={filteredTasks}
+        strategy={verticalListSortingStrategy}
+      >
         <div ref={setNodeRef}>
           {filteredTasks.map((task) => (
-            <Task task={task} key={task.id} />
+            <Sortable task={task} key={task.id} />
           ))}
         </div>
       </SortableContext>
@@ -99,6 +113,20 @@ export function TaskList({ status, tasks, setTasks }: TaskListProps) {
           </div>
         </form>
       ) : null}
+      <DragOverlay
+        dropAnimation={{
+          duration: 0, // アニメーション時間を0に設定
+          sideEffects: defaultDropAnimationSideEffects({
+            styles: {
+              active: {
+                opacity: '0.5',
+              },
+            },
+          }),
+        }}
+      >
+        {activeTask ? <Task task={activeTask} /> : null}
+      </DragOverlay>
     </div>
   );
 }

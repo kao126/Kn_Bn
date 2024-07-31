@@ -1,6 +1,7 @@
 'use client';
 import {
   DndContext,
+  DragStartEvent,
   DragOverEvent,
   DragEndEvent,
   KeyboardSensor,
@@ -30,6 +31,7 @@ export function Kanban() {
   const statusList = ['ToDo', 'In Progress', 'Pending', 'Done'];
 
   const [tasks, setTasks] = useState<TasksProps[]>([initialTask]);
+  const [activeId, setActiveId] = useState<number | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -38,12 +40,19 @@ export function Kanban() {
     })
   );
 
-  function isSameListDragOver(active: Active, over: Over) {
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    if (typeof active.id === 'number') {
+      setActiveId(active.id);
+    }
+  };
+
+  const isSameListDragOver = (active: Active, over: Over) => {
     return (
       active.data.current?.sortable.containerId ===
       (over.data.current?.sortable.containerId || over.id)
     );
-  }
+  };
 
   const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
@@ -98,7 +107,13 @@ export function Kanban() {
 
   const taskLists = statusList.map((status, i) => {
     return (
-      <TaskList status={status} tasks={tasks} setTasks={setTasks} key={i} />
+      <TaskList
+        status={status}
+        tasks={tasks}
+        setTasks={setTasks}
+        activeId={activeId}
+        key={i}
+      />
     );
   });
 
@@ -115,6 +130,7 @@ export function Kanban() {
           id={id}
           sensors={sensors}
           collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
