@@ -16,15 +16,18 @@ export function Task({ task }: TaskProps) {
       <h2 className="font-bold text-sm">{task.title}</h2>
       <p className="text-sm whitespace-pre-line">{task.content}</p>
       {task.url ? (
-        <Link
-          href={task.url}
-          rel="noopener noreferrer"
-          target="_blank"
-          className="flex justify-end"
-        >
-          <Url className="-rotate-45" />
-        </Link>
-      ) : null}
+        <p className="flex justify-end">
+          <Link
+            href={task.url}
+            rel="noopener noreferrer"
+            target="_blank"
+            
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Url className="-rotate-45" />
+          </Link>
+        </p>
+        ) : null}
     </div>
   );
 }
