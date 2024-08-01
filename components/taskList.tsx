@@ -41,12 +41,14 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
     const maxId = tasks.reduce((max, task) => Math.max(max, task.id), 0);
     const title = formData.get('title');
     const content = formData.get('content');
+    const url = formData.get('url');
 
     const targetTask = {
       id: Number(maxId + 1),
       title: String(title),
       content: String(content),
       status: status,
+      url: String(url),
     };
     const newTasks = [...tasks, targetTask];
     setTasks(newTasks);
@@ -99,6 +101,18 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
               id="content"
               name="content"
               placeholder="content"
+              autoComplete="off"
+              className="w-full border-2 rounded-md p-1 mb-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="url" className="text-slate-600">
+              URL
+            </label>
+            <textarea
+              id="url"
+              name="url"
+              placeholder="url"
               autoComplete="off"
               className="w-full border-2 rounded-md p-1 mb-2"
             />
