@@ -9,9 +9,11 @@ import {
 } from '@dnd-kit/sortable';
 import { Sortable } from './sortable';
 import { Plus } from './icons/plus';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { TasksProps } from '@/types/tasks';
 import { Task } from './task';
+import { File } from './file';
+import { useGetFileUrl } from '@/hooks/useGetFileUrl';
 
 type TaskListProps = {
   status: string;
@@ -30,6 +32,16 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
   const filteredTasks = tasks.filter((task) => task.status === status);
   const activeTask = tasks.find((task) => task.id === activeId);
   const [showForm, setShowForm] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const { fileUrl, setFileUrl } = useGetFileUrl({ file: file });
+
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      setFile(files[0]);
+    }
+  };
 
   const handlePlus = () => {
     setShowForm((prevBool) => !prevBool);
@@ -49,9 +61,12 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
       content: String(content),
       status: status,
       url: String(url),
+      fileName: file?.name,
+      fileUrl: fileUrl,
     };
     const newTasks = [...tasks, targetTask];
     setTasks(newTasks);
+    setFileUrl(null);
     setShowForm((prevBool) => !prevBool);
   };
 
@@ -116,6 +131,27 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
               autoComplete="off"
               className="w-full border-2 rounded-md p-1 mb-2"
             />
+          </div>
+          <div>
+            <label
+              htmlFor="file"
+              className="flex justify-center items-center w-full h-full border-2 border-dashed rounded-md text-slate-600 p-1 mb-2 cursor-pointer"
+            >
+              {fileUrl && file ? (
+                <img
+                  src={fileUrl}
+                  alt={file.name}
+                  className="object-cover w-full h-full"
+                />
+              ) : (
+                '+ ファイルをアップロード'
+              )}
+              <File
+                ref={fileInputRef}
+                id={'file'}
+                onChange={handleChangeFile}
+              />
+            </label>
           </div>
           <div className="text-center">
             <button

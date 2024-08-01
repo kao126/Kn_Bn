@@ -4,4 +4,6 @@ export type TasksProps = {
   content: string;
   status: string;
   url?: string;
+  fileName?: string;
+  fileUrl?: string;
 };
