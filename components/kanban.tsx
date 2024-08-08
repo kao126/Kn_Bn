@@ -16,6 +16,7 @@ import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useId, useState } from 'react';
 import { TaskList } from './taskList';
 import { TasksProps } from '@/types/tasks';
+import { Header } from './header';
 
 const initialTask = {
   id: 1,
@@ -122,14 +123,9 @@ export function Kanban() {
   });
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center p-4">
-        <h1 className="font-bold text-2xl text-slate-600">Kn_Bn</h1>
-        <button className="border border-[#bf94ff] rounded-md bg-white p-2 font-semibold text-slate-600 active:translate-y-0.5">
-          Add Board
-        </button>
-      </div>
-      <div className="grid gap-4 sm:grid-cols-4">
+    <div className="">
+      <Header />
+      <div className="grid gap-4 sm:grid-cols-4 p-8">
         <DndContext
           id={id}
           sensors={sensors}
