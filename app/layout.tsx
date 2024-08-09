@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { SideBar } from '@/components/sideBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,8 +22,12 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <script type="module" src="./features/common/kanban.ts"></script> */}
       </head>
-      <body className={inter.className} suppressHydrationWarning={true}>
-        {children}
+      <body
+        className="grid grid-cols-[220px_auto]"
+        suppressHydrationWarning={true}
+      >
+        <SideBar />
+        <div>{children}</div>
       </body>
     </html>
   );
