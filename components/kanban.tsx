@@ -86,20 +86,6 @@ export function Kanban() {
       return;
     }
 
-    // if (
-    //   active.data.current?.sortable.containerId !==
-    //   over.data.current?.sortable.containerId
-    // ) {
-    //   const newTaskList = tasks.map((task) => {
-    //     if (task.id === active.id) {
-    //       task.status = over.data.current?.sortable.containerId;
-    //     }
-    //     return task;
-    //   });
-    //   console.log(newTaskList);
-    //   setTasks(newTaskList);
-    // }
-
     // over先todoのidが異なればデータの入れ替えを行う
     if (active.id !== over.id) {
       const dragIndex = tasks.findIndex((task) => task.id === active.id);
