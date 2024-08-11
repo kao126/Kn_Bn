@@ -1,13 +1,9 @@
-// 'use client';
-import { Kanban } from '@/components/kanban';
-// import { SideBar } from '@/components/sideBar';
-// import { TaskForm } from '@/features/common/kanban';
+import { UsersComponent } from '@/components/usersComponent';
 
 export default function Users() {
-  // const form = new TaskForm();
   return (
     <main className="h-dvh">
-      <Kanban />
+      <UsersComponent />
     </main>
   );
 }
