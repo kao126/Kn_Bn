@@ -14,15 +14,14 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useId, useState } from 'react';
-import { TaskList } from './taskList';
+import { TaskList } from './task_board/taskList';
 import { TasksProps } from '@/types/tasks';
-import { Header } from './header';
+import { Header } from './task_board/header';
 
 const initialTask = {
   id: 1,
   title: 'タスク名',
-  content:
-    'TODO内容(詳細)をここに記載します。\n 右上の＋ボタンからタスクを追加できます。',
+  content: 'TODO内容(詳細)をここに記載します。\n 右上の＋ボタンからタスクを追加できます。',
   status: 'ToDo',
   url: 'https://github.com/kao126/Kn_Bn',
 };
@@ -112,13 +111,7 @@ export function Kanban() {
 
   const taskLists = statusList.map((status, i) => {
     return (
-      <TaskList
-        status={status}
-        tasks={tasks}
-        setTasks={setTasks}
-        activeId={activeId}
-        key={i}
-      />
+      <TaskList status={status} tasks={tasks} setTasks={setTasks} activeId={activeId} key={i} />
     );
   });
 

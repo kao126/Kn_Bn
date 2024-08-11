@@ -1,5 +1,5 @@
 import { TasksProps } from '@/types/tasks';
-import { Url } from './icons/url';
+import { Url } from '../icons/url';
 import Link from 'next/link';
 
 type TaskProps = {

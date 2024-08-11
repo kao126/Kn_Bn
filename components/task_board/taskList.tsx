@@ -1,14 +1,7 @@
-import {
-  defaultDropAnimationSideEffects,
-  DragOverlay,
-  useDroppable,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+import { defaultDropAnimationSideEffects, DragOverlay, useDroppable } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Sortable } from './sortable';
-import { Plus } from './icons/plus';
+import { Plus } from '../icons/plus';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { TasksProps } from '@/types/tasks';
 import { Task } from './task';
@@ -74,16 +67,9 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
     <div className="p-4">
       <div className="flex justify-between items-center mb-2">
         <h2 className="font-semibold text-slate-600">{status}</h2>
-        <Plus
-          onClick={handlePlus}
-          className="cursor-pointer active:translate-y-0.5"
-        />
+        <Plus onClick={handlePlus} className="cursor-pointer active:translate-y-0.5" />
       </div>
-      <SortableContext
-        id={status}
-        items={filteredTasks}
-        strategy={verticalListSortingStrategy}
-      >
+      <SortableContext id={status} items={filteredTasks} strategy={verticalListSortingStrategy}>
         <div ref={setNodeRef}>
           {filteredTasks.map((task) => (
             <Sortable task={task} key={task.id} />
@@ -91,10 +77,7 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
         </div>
       </SortableContext>
       {showForm ? (
-        <form
-          onSubmit={handleSubmit}
-          className="border-2 rounded-md bg-white p-4"
-        >
+        <form onSubmit={handleSubmit} className="border-2 rounded-md bg-white p-4">
           <div>
             <label htmlFor="title" className="text-slate-600">
               タイトル
@@ -138,19 +121,11 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
               className="flex justify-center items-center w-full h-full border-2 border-dashed rounded-md text-slate-600 p-1 mb-2 cursor-pointer"
             >
               {fileUrl && file ? (
-                <img
-                  src={fileUrl}
-                  alt={file.name}
-                  className="object-cover w-full h-full"
-                />
+                <img src={fileUrl} alt={file.name} className="object-cover w-full h-full" />
               ) : (
                 '+ ファイルをアップロード'
               )}
-              <File
-                ref={fileInputRef}
-                id={'file'}
-                onChange={handleChangeFile}
-              />
+              <File ref={fileInputRef} id={'file'} onChange={handleChangeFile} />
             </label>
           </div>
           <div className="text-center">

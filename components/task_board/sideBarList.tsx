@@ -1,8 +1,8 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { Setting } from './icons/setting';
-import { Task } from './icons/task';
-import { Users } from './icons/users';
+import { Setting } from '../icons/setting';
+import { Task } from '../icons/task';
+import { Users } from '../icons/users';
 import Link from 'next/link';
 
 export function SideBarList({ listName }: { listName: string }) {
