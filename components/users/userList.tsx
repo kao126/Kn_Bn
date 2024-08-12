@@ -2,10 +2,24 @@ import { useEffect, useState } from 'react';
 import avatar from '@/public/images/avatar.png';
 
 const initialUsers = [
-  { id: 1, name: 'Jese Leos', username: 'jeseleos', role: 'Member', imgSrc: avatar.src },
-  { id: 2, name: 'Layla Hover', username: 'layla', role: 'Admin', imgSrc: avatar.src },
-  { id: 3, name: 'Mac High', username: 'mac', role: 'Owner', imgSrc: avatar.src },
-  { id: 4, name: 'Kevin Doe', username: 'kevin', role: 'Member', imgSrc: avatar.src },
+  {
+    id: 1,
+    name: 'Jese Leos',
+    username: 'jeseleos',
+    role: 'Member',
+    imgSrc: avatar.src,
+    login: true,
+  },
+  {
+    id: 2,
+    name: 'Layla Hover',
+    username: 'layla',
+    role: 'Admin',
+    imgSrc: avatar.src,
+    login: false,
+  },
+  { id: 3, name: 'Mac High', username: 'mac', role: 'Owner', imgSrc: avatar.src, login: true },
+  { id: 4, name: 'Kevin Doe', username: 'kevin', role: 'Member', imgSrc: avatar.src, login: false },
 ];
 
 export function UserList({ selectedRole }: { selectedRole: string }) {
@@ -19,6 +33,8 @@ export function UserList({ selectedRole }: { selectedRole: string }) {
     const filteredUsers = initialUsers.filter((user) => user.role === selectedRole);
     setUsers(filteredUsers);
   }, [selectedRole]);
+
+  const loginStatusBg = (login: boolean) => (login ? 'bg-green-400' : 'bg-[#94a3b8]');
 
   return (
     <div className="relative overflow-x-auto w-[80%] mx-auto rounded-md">
@@ -46,7 +62,11 @@ export function UserList({ selectedRole }: { selectedRole: string }) {
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <img className="w-10 h-10 rounded" src={user.imgSrc} alt="avatar" />
-                    <span className="absolute bottom-0 left-8 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full"></span>
+                    <span
+                      className={`absolute bottom-0 left-8 transform translate-y-1/4 w-3.5 h-3.5 ${loginStatusBg(
+                        user.login
+                      )} border-2 border-white rounded-full`}
+                    ></span>
                   </div>
                   <div className="font-medium">
                     <div>{user.name}</div>
