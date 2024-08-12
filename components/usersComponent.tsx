@@ -1,17 +1,30 @@
+'use client';
+import { useState } from 'react';
 import { Header } from './task_board/header';
-import avatar from '@/public/images/avatar.png';
 import { UserList } from './users/userList';
 
+const roles = ['All', 'Owner', 'Admin', 'Member'];
+
 export function UsersComponent() {
+  const [selectedRole, setSelectedRole] = useState(roles[0]);
+
+  const changeColor = (role: string) => {
+    const textColor = role === selectedRole ? 'text-[#bf94ff]' : '';
+    const borderColor = role === selectedRole ? 'border-[#bf94ff]' : '';
+    return `px-4 py-2 ${textColor} cursor-pointer caret-transparent border-b-2 ${borderColor}`;
+  };
+
   return (
     <div>
       <Header />
       <ul className="flex justify-start w-[80%] border-b-2 list-none mx-auto pt-8 mb-8">
-        <li className="px-4 py-2 text-[#bf94ff]">All</li>
-        <li className="px-4 py-2">Admin</li>
-        <li className="px-4 py-2">Member</li>
+        {roles.map((role, i) => (
+          <li className={changeColor(role)} onClick={() => setSelectedRole(role)} key={i}>
+            {role}
+          </li>
+        ))}
       </ul>
-      <UserList />
+      <UserList selectedRole={selectedRole} />
     </div>
   );
 }
