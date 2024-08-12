@@ -8,17 +8,17 @@ export function Header() {
         <img
           className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
           src={avatar.src}
-          alt="avater"
+          alt="avatar"
         />
         <img
           className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
           src={avatar.src}
-          alt="avater"
+          alt="avatar"
         />
         <img
           className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
           src={avatar.src}
-          alt="avater"
+          alt="avatar"
         />
         <Link
           className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-[#94a3b8] border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
@@ -28,7 +28,7 @@ export function Header() {
         </Link>
       </div>
       <div className="flex items-center gap-4">
-        <img className="w-10 h-10 rounded-full" src={avatar.src} alt="avater" />
+        <img className="w-10 h-10 rounded-full" src={avatar.src} alt="avatar" />
         <div className="font-medium text-white">
           <div>Jese Leos</div>
           <div className="text-sm text-gray-400">Joined in August 2014</div>

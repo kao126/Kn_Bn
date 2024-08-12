@@ -45,7 +45,7 @@ export function UserList({ selectedRole }: { selectedRole: string }) {
               <td className="px-6 py-4">
                 <div className="flex items-center gap-4">
                   <div className="relative">
-                    <img className="w-10 h-10 rounded" src={user.imgSrc} alt="avater" />
+                    <img className="w-10 h-10 rounded" src={user.imgSrc} alt="avatar" />
                     <span className="absolute bottom-0 left-8 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full"></span>
                   </div>
                   <div className="font-medium">
