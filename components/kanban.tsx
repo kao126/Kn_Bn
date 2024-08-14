@@ -106,11 +106,11 @@ export function Kanban() {
     <div className="">
       <Header />
       <div className="px-8 py-6">
-        <div className="flex justify-end px-4 py-2">
+        {/* <div className="flex justify-end px-4 py-2">
           <button className="bg-[#bf94ff] rounded-md p-2 font-semibold text-white active:translate-y-0.5">
             Add Board
           </button>
-        </div>
+        </div> */}
         <div className="grid gap-4 sm:grid-cols-4">
           <DndContext
             id={id}
