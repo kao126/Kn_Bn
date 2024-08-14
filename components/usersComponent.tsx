@@ -10,8 +10,8 @@ export function UsersComponent() {
 
   const changeColor = (role: string) => {
     const textColor = role === selectedRole ? 'text-[#bf94ff]' : '';
-    const borderColor = role === selectedRole ? 'border-[#bf94ff]' : '';
-    return `px-4 py-2 ${textColor} cursor-pointer caret-transparent border-b-2 ${borderColor}`;
+    const borderColor = role === selectedRole ? 'border-b-2 border-[#bf94ff]' : '';
+    return `px-4 py-2 ${textColor} cursor-pointer caret-transparent ${borderColor}`;
   };
 
   return (
