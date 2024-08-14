@@ -24,6 +24,7 @@ const initialTask = {
   content: 'TODO内容(詳細)をここに記載します。\n 右上の＋ボタンからタスクを追加できます。',
   status: 'ToDo',
   url: 'https://github.com/kao126/Kn_Bn',
+  userIds: [1],
 };
 
 export function Kanban() {

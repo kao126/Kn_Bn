@@ -6,4 +6,5 @@ export type TasksProps = {
   url?: string;
   fileName?: string | undefined;
   fileUrl?: string | null;
+  userIds?: number[];
 };

@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { File } from './file';
-import { useGetFileUrl } from '@/hooks/useGetFileUrl';
 import { TasksProps } from '@/types/tasks';
+import { useGetFileUrl } from '@/hooks/useGetFileUrl';
+import { useUsersInfo } from '@/hooks/useUsersInfo';
+import Select, { StylesConfig } from 'react-select';
 
 type TaskFormProps = {
   status: string;
@@ -14,6 +16,19 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
   const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { fileUrl, setFileUrl } = useGetFileUrl({ file: file });
+  const { selectUsersOption } = useUsersInfo();
+
+  const customStyle: StylesConfig = {
+    control: (styles) => ({ ...styles, border: 'none' }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      color: '#344156',
+      ':hover': {
+        backgroundColor: '#344156',
+        color: '#fff',
+      },
+    }),
+  };
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -30,6 +45,7 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
     const title = formData.get('title');
     const content = formData.get('content');
     const url = formData.get('url');
+    const userIds = formData.getAll('users');
 
     const targetTask = {
       id: Number(maxId + 1),
@@ -39,6 +55,7 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
       url: String(url),
       fileName: file?.name,
       fileUrl: fileUrl,
+      userIds: userIds?.map((userId) => Number(userId)),
     };
     const newTasks = [...tasks, targetTask];
     setTasks(newTasks);
@@ -97,6 +114,19 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
           )}
           <File ref={fileInputRef} id={'file'} onChange={handleChangeFile} />
         </label>
+      </div>
+      <div>
+        <label htmlFor="users" className="text-slate-600">
+          ユーザー
+        </label>
+        <Select
+          isMulti
+          name="users"
+          options={selectUsersOption}
+          className="border-2 rounded-md mb-2"
+          classNamePrefix="select"
+          styles={customStyle}
+        />
       </div>
       <div className="text-center">
         <button

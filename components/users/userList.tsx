@@ -1,28 +1,8 @@
 import { useEffect, useState } from 'react';
-import avatar from '@/public/images/avatar.png';
-
-const initialUsers = [
-  {
-    id: 1,
-    name: 'Jese Leos',
-    username: 'jeseleos',
-    role: 'Member',
-    imgSrc: avatar.src,
-    login: true,
-  },
-  {
-    id: 2,
-    name: 'Layla Hover',
-    username: 'layla',
-    role: 'Admin',
-    imgSrc: avatar.src,
-    login: false,
-  },
-  { id: 3, name: 'Mac High', username: 'mac', role: 'Owner', imgSrc: avatar.src, login: true },
-  { id: 4, name: 'Kevin Doe', username: 'kevin', role: 'Member', imgSrc: avatar.src, login: false },
-];
+import { useUsersInfo } from '@/hooks/useUsersInfo';
 
 export function UserList({ selectedRole }: { selectedRole: string }) {
+  const { initialUsers } = useUsersInfo();
   const [users, setUsers] = useState(initialUsers);
 
   useEffect(() => {

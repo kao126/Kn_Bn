@@ -1,12 +1,14 @@
 import { TasksProps } from '@/types/tasks';
 import { Url } from '../icons/url';
 import Link from 'next/link';
+import { useUsersInfo } from '@/hooks/useUsersInfo';
 
 type TaskProps = {
   task: TasksProps;
 };
 
 export function Task({ task }: TaskProps) {
+  const { initialUsers } = useUsersInfo();
   return (
     <div className="relative border-2 rounded-md bg-white p-2">
       <span
@@ -22,17 +24,31 @@ export function Task({ task }: TaskProps) {
           className="border-2 rounded-md object-cover w-full h-full mb-2"
         />
       ) : null}
-      {task.url ? (
-        <p className="flex justify-end">
-          <Link
-            href={task.url}
-            rel="noopener noreferrer"
-            target="_blank"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <Url className="-rotate-45" />
-          </Link>
-        </p>
+      {task.url || task.userIds ? (
+        <div className="flex justify-between">
+          {task.userIds ? (
+            <div className="flex -space-x-2.5 rtl:space-x-reverse">
+              {task.userIds.map((UserId, i) => (
+                <img
+                  className="w-7 h-7 border-2 border-white rounded-full"
+                  src={initialUsers.find((user) => user.id == UserId)?.imgSrc}
+                  alt="avatar"
+                  key={i}
+                />
+              ))}
+            </div>
+          ) : null}
+          {task.url ? (
+            <Link
+              href={task.url}
+              rel="noopener noreferrer"
+              target="_blank"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Url className="-rotate-45" />
+            </Link>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );
