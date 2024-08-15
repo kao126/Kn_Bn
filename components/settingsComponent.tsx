@@ -7,10 +7,10 @@ export function SettingsComponent() {
     <div>
       <Header />
       <div className="p-6">
-        <div className="w-[60%] border-2 border-slate-300 rounded-md bg-white mx-auto p-6">
+        <div className="max-w-[700px] w-[90%] border-2 border-slate-300 rounded-md bg-white mx-auto p-6">
           <h1 className="font-bold text-2xl mb-4">プロフィールを編集</h1>
           <form action="">
-            <div className="grid grid-cols-[auto_max-content] gap-10">
+            <div className="grid md:grid-cols-[auto_max-content] gap-10">
               <div>
                 <div className="flex flex-col mb-6">
                   <label htmlFor="name" className="font-bold mb-1">
