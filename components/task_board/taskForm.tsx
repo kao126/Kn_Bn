@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { File } from './file';
 import { TasksProps } from '@/types/tasks';
 import { useGetFileUrl } from '@/hooks/useGetFileUrl';
@@ -17,6 +17,7 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { fileUrl, setFileUrl } = useGetFileUrl({ file: file });
   const { selectUsersOption } = useUsersInfo();
+  const id = useId();
 
   const customStyle: StylesConfig = {
     control: (styles) => ({ ...styles, border: 'none' }),
@@ -104,7 +105,7 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
       </div>
       <div>
         <label
-          htmlFor="file"
+          htmlFor={`file-${id}`}
           className="flex justify-center items-center w-full h-full border-2 border-dashed rounded-md text-slate-600 p-1 mb-2 cursor-pointer"
         >
           {fileUrl && file ? (
@@ -112,7 +113,7 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
           ) : (
             '+ ファイルをアップロード'
           )}
-          <File ref={fileInputRef} id={'file'} onChange={handleChangeFile} />
+          <File ref={fileInputRef} id={`file-${id}`} onChange={handleChangeFile} />
         </label>
       </div>
       <div>
