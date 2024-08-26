@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { Header } from './task_board/header';
-import { UserList } from './users/userList';
+import { Header } from '../header';
+import { UserList } from './userList';
 
 const roles = ['All', 'Owner', 'Admin', 'Member'];
 

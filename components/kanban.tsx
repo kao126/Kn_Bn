@@ -16,7 +16,7 @@ import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useId, useState } from 'react';
 import { TaskList } from './task_board/taskList';
 import { TasksProps } from '@/types/tasks';
-import { Header } from './task_board/header';
+import { Header } from './header';
 
 const initialTask = {
   id: 1,

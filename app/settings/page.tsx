@@ -1,4 +1,4 @@
-import { SettingsComponent } from '@/components/settingsComponent';
+import { SettingsComponent } from '@/components/settings/settingsComponent';
 
 export default function Settings() {
   return (

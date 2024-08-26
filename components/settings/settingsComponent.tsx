@@ -1,4 +1,4 @@
-import { Header } from './task_board/header';
+import { Header } from '../header';
 import { useUsersInfo } from '@/hooks/useUsersInfo';
 
 export function SettingsComponent() {

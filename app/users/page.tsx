@@ -1,4 +1,4 @@
-import { UsersComponent } from '@/components/usersComponent';
+import { UsersComponent } from '@/components/users/usersComponent';
 
 export default function Users() {
   return (
