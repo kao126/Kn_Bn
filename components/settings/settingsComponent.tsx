@@ -1,8 +1,16 @@
+'use client';
+import { useState } from 'react';
 import { Header } from '../header';
 import { useUsersInfo } from '@/hooks/useUsersInfo';
+import { File } from '../task_board/file';
+import { useChangeFile } from '@/hooks/useChangeFile';
 
 export function SettingsComponent() {
   const { initialUsers } = useUsersInfo();
+  const [name, setName] = useState(initialUsers[0].name);
+  const [username, setUsername] = useState(initialUsers[0].username);
+  const { fileInputRef, file, fileUrl, handleChangeFile } = useChangeFile();
+
   return (
     <div>
       <Header />
@@ -19,7 +27,8 @@ export function SettingsComponent() {
                   <input
                     type="text"
                     name="name"
-                    value={initialUsers[0].name}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full border-2 rounded-md text-xl p-2"
                   />
                 </div>
@@ -30,7 +39,8 @@ export function SettingsComponent() {
                   <input
                     type="text"
                     name="username"
-                    value={`@${initialUsers[0].username}`}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="w-full border-2 rounded-md text-xl p-2"
                   />
                 </div>
@@ -43,16 +53,21 @@ export function SettingsComponent() {
               </div>
               <div>
                 <label className="inline-block font-bold mb-1">プロフィール写真</label>
-                <img
-                  src={initialUsers[0].imgSrc}
-                  alt="プロフィール写真"
-                  className="w-48 rounded-md"
-                />
+                {fileUrl && file ? (
+                  <img src={fileUrl} alt={file.name} className="w-48 rounded-md" />
+                ) : (
+                  <img
+                    src={initialUsers[0].imgSrc}
+                    alt="プロフィール写真"
+                    className="w-48 rounded-md"
+                  />
+                )}
                 <label
-                  htmlFor=""
+                  htmlFor="profile-image"
                   className="flex justify-center items-center w-full border-2 rounded-md p-1 my-2 cursor-pointer"
                 >
-                  写真をアップロード
+                  {'写真をアップロード'}
+                  <File ref={fileInputRef} id={'profile-image'} onChange={handleChangeFile} />
                 </label>
                 <div className="text-center">
                   <button>写真を削除</button>
