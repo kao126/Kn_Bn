@@ -60,6 +60,7 @@ export function TaskForm({ status, tasks, setTasks, handlePlus }: TaskFormProps)
     };
     const newTasks = [...tasks, targetTask];
     setTasks(newTasks);
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
     setFileUrl(null);
     handlePlus();
   };

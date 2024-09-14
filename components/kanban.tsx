@@ -13,7 +13,7 @@ import {
   Over,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { TaskList } from './task_board/taskList';
 import { TasksProps } from '@/types/tasks';
 import { Header } from './header';
@@ -33,6 +33,13 @@ export function Kanban() {
 
   const [tasks, setTasks] = useState<TasksProps[]>([initialTask]);
   const [activeId, setActiveId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const _lsTasks = localStorage.getItem('tasks');
+    if (_lsTasks) {
+      setTasks(JSON.parse(_lsTasks));
+    }
+  }, []);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
