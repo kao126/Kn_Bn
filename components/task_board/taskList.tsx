@@ -34,7 +34,7 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
       <SortableContext id={status} items={filteredTasks} strategy={verticalListSortingStrategy}>
         <div ref={setNodeRef}>
           {filteredTasks.map((task) => (
-            <Sortable task={task} key={task.id} />
+            <Sortable task={task} tasks={tasks} setTasks={setTasks} key={task.id} />
           ))}
         </div>
       </SortableContext>
@@ -53,7 +53,7 @@ export function TaskList({ status, tasks, setTasks, activeId }: TaskListProps) {
           }),
         }}
       >
-        {activeTask ? <Task task={activeTask} /> : null}
+        {activeTask ? <Task task={activeTask} tasks={tasks} setTasks={setTasks} /> : null}
       </DragOverlay>
     </div>
   );

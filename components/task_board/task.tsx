@@ -2,13 +2,24 @@ import { TasksProps } from '@/types/tasks';
 import { Url } from '../icons/url';
 import Link from 'next/link';
 import { useUsersInfo } from '@/hooks/useUsersInfo';
+import { DeleteBtn } from '../icons/deleteBtn';
+import { Dispatch, SetStateAction } from 'react';
 
 type TaskProps = {
   task: TasksProps;
+  tasks: TasksProps[];
+  setTasks: Dispatch<SetStateAction<TasksProps[]>>;
 };
 
-export function Task({ task }: TaskProps) {
+export function Task({ task, tasks, setTasks }: TaskProps) {
   const { initialUsers } = useUsersInfo();
+
+  const removeTask = (id: TasksProps['id']) => {
+    const newTasks = tasks.filter((task) => task.id != id);
+    setTasks(newTasks);
+    localStorage.setItem('tasks', JSON.stringify(newTasks));
+  };
+
   return (
     <div className="relative border-2 rounded-md bg-white p-2">
       <span
@@ -25,7 +36,7 @@ export function Task({ task }: TaskProps) {
         />
       ) : null}
       {task.url || task.userIds ? (
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           {task.userIds ? (
             <div className="flex -space-x-2.5 rtl:space-x-reverse">
               {task.userIds.map((UserId, i) => (
@@ -38,16 +49,21 @@ export function Task({ task }: TaskProps) {
               ))}
             </div>
           ) : null}
-          {task.url ? (
-            <Link
-              href={task.url}
-              rel="noopener noreferrer"
-              target="_blank"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <Url className="-rotate-45" />
-            </Link>
-          ) : null}
+          <div className="flex">
+            {task.url ? (
+              <Link
+                href={task.url}
+                rel="noopener noreferrer"
+                target="_blank"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Url className="-rotate-45" />
+              </Link>
+            ) : null}
+            <button onClick={() => removeTask(task.id)}>
+              <DeleteBtn />
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

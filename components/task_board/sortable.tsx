@@ -2,12 +2,15 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { TasksProps } from '@/types/tasks';
 import { Task } from './task';
+import { Dispatch, SetStateAction } from 'react';
 
 type TaskProps = {
   task: TasksProps;
+  tasks: TasksProps[];
+  setTasks: Dispatch<SetStateAction<TasksProps[]>>;
 };
 
-export function Sortable({ task }: TaskProps) {
+export function Sortable({ task, tasks, setTasks }: TaskProps) {
   const {
     attributes,
     listeners,
@@ -31,7 +34,7 @@ export function Sortable({ task }: TaskProps) {
       {...listeners}
       className="mb-1"
     >
-      <Task task={task} />
+      <Task task={task} tasks={tasks} setTasks={setTasks} />
     </div>
   );
 }
